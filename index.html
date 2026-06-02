@@ -1,0 +1,1420 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Villa 4 Patas — Agendamentos</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700;800&family=Caveat:wght@500;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+<style>
+  /* ---------- Tokens ---------- */
+  :root {
+    --green: #34c47b;
+    --green-deep: #1f9d5e;
+    --green-soft: #e8f8ee;
+    --coral: #ff6b6b;
+    --coral-deep: #ef4f4f;
+    --coral-soft: #ffe6e3;
+    --yellow: #ffcb47;
+    --ink: #1f2933;
+    --ink-soft: #4b5563;
+    --muted: #8a93a0;
+    --line: #eef0f3;
+    --bg: #fafaf7;
+    --card: #ffffff;
+    --shadow-sm: 0 2px 6px rgba(20, 30, 40, 0.05);
+    --shadow-md: 0 10px 30px rgba(20, 30, 40, 0.08);
+    --shadow-lg: 0 24px 60px rgba(20, 30, 40, 0.14);
+    --radius: 22px;
+  }
+
+  * { box-sizing: border-box; }
+  html, body { margin: 0; padding: 0; }
+  body {
+    font-family: 'Poppins', system-ui, sans-serif;
+    color: var(--ink);
+    background: var(--bg);
+    line-height: 1.55;
+    -webkit-font-smoothing: antialiased;
+    overflow-x: hidden;
+  }
+  img { max-width: 100%; display: block; }
+  a { color: inherit; text-decoration: none; }
+  button { font-family: inherit; cursor: pointer; border: none; background: none; }
+
+  .container {
+    width: min(1180px, 100% - 2.5rem);
+    margin-inline: auto;
+  }
+
+  .script {
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+
+  /* ---------- Header ---------- */
+  header.site {
+    position: sticky;
+    top: 0;
+    z-index: 50;
+    background: rgba(255,255,255,0.85);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border-bottom: 1px solid rgba(0,0,0,0.04);
+  }
+  .nav {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 14px 0;
+    gap: 16px;
+  }
+  .logo {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-weight: 800;
+    font-size: 22px;
+    letter-spacing: -0.3px;
+  }
+  .logo .paw {
+    width: 38px; height: 38px;
+    display: grid; place-items: center;
+    background: var(--green);
+    color: #fff;
+    border-radius: 14px;
+    transform: rotate(-8deg);
+    box-shadow: 0 6px 14px rgba(52,196,123,0.35);
+  }
+  .logo .word { display: flex; align-items: baseline; gap: 4px; }
+  .logo .villa { font-size: 14px; text-transform: uppercase; letter-spacing: 3px; color: var(--ink-soft); font-weight: 600; }
+  .logo .patas { font-family: 'Caveat', cursive; font-size: 30px; line-height: 1; color: var(--green-deep); }
+  .nav-links {
+    display: none;
+    gap: 28px;
+    font-weight: 500;
+    color: var(--ink-soft);
+  }
+  .nav-links a { transition: color .2s; position: relative; }
+  .nav-links a:hover { color: var(--coral); }
+  .nav-links a.active { color: var(--ink); }
+  .nav-links a.active::after {
+    content: '';
+    position: absolute;
+    left: 0; right: 0; bottom: -8px;
+    height: 3px;
+    background: var(--coral);
+    border-radius: 3px;
+  }
+  .nav-cta {
+    background: var(--ink);
+    color: #fff;
+    padding: 10px 18px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 14px;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    transition: transform .15s, background .2s;
+  }
+  .nav-cta:hover { transform: translateY(-2px); background: var(--coral); }
+  .menu-btn {
+    width: 42px; height: 42px;
+    display: grid; place-items: center;
+    border-radius: 12px;
+    background: var(--green-soft);
+    color: var(--green-deep);
+    font-size: 18px;
+  }
+
+  @media (min-width: 900px) {
+    .nav-links { display: flex; }
+    .menu-btn { display: none; }
+  }
+
+  /* ---------- Hero ---------- */
+  .hero {
+    position: relative;
+    padding: 32px 0 80px;
+    overflow: hidden;
+  }
+  .hero-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 24px;
+    align-items: center;
+  }
+  .hero-copy { position: relative; z-index: 2; padding-top: 12px; }
+  .eyebrow {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 6px 14px 6px 6px;
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: 999px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--ink-soft);
+    box-shadow: var(--shadow-sm);
+  }
+  .eyebrow .dot {
+    width: 22px; height: 22px;
+    background: var(--coral); color: #fff;
+    border-radius: 50%;
+    display: grid; place-items: center;
+    font-size: 11px;
+  }
+  .hero h1 {
+    font-size: clamp(40px, 7vw, 76px);
+    line-height: 1.02;
+    margin: 18px 0 8px;
+    letter-spacing: -1.5px;
+    font-weight: 800;
+  }
+  .hero h1 .accent {
+    display: block;
+    font-family: 'Caveat', cursive;
+    font-weight: 700;
+    color: var(--coral);
+    font-size: 1.05em;
+    line-height: 0.95;
+    transform: rotate(-2deg);
+    transform-origin: left;
+  }
+  .hero p.lede {
+    font-size: 17px;
+    color: var(--ink-soft);
+    max-width: 460px;
+    margin: 18px 0 28px;
+  }
+  .hero-ctas {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 14px;
+    align-items: center;
+  }
+  .btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    padding: 16px 26px;
+    border-radius: 999px;
+    font-weight: 600;
+    font-size: 15px;
+    transition: transform .15s ease, box-shadow .2s ease, background .2s;
+  }
+  .btn-primary {
+    background: var(--coral);
+    color: #fff;
+    box-shadow: 0 10px 24px rgba(255,107,107,0.4);
+  }
+  .btn-primary:hover { transform: translateY(-3px); box-shadow: 0 16px 30px rgba(255,107,107,0.45); background: var(--coral-deep); }
+  .btn-ghost {
+    color: var(--ink);
+    background: transparent;
+  }
+  .btn-ghost .play {
+    width: 44px; height: 44px;
+    background: #fff;
+    border-radius: 50%;
+    display: grid; place-items: center;
+    box-shadow: var(--shadow-sm);
+    color: var(--green-deep);
+  }
+  .btn-ghost:hover .play { background: var(--green); color: #fff; }
+
+  .hero-stats {
+    display: flex;
+    gap: 28px;
+    margin-top: 42px;
+    flex-wrap: wrap;
+  }
+  .stat .n {
+    font-size: 28px;
+    font-weight: 800;
+    color: var(--ink);
+    display: flex;
+    align-items: baseline;
+    gap: 2px;
+  }
+  .stat .n span { color: var(--coral); }
+  .stat .l { font-size: 13px; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; }
+
+  /* hero visual */
+  .hero-visual {
+    position: relative;
+    aspect-ratio: 1 / 1;
+    max-width: 560px;
+    margin-inline: auto;
+    width: 100%;
+  }
+  .blob {
+    position: absolute;
+    inset: 0;
+    background: var(--green);
+    border-radius: 62% 38% 47% 53% / 53% 51% 49% 47%;
+    box-shadow:
+      inset 0 -30px 60px rgba(0,0,0,0.06),
+      0 30px 60px rgba(52,196,123,0.25);
+    animation: morph 14s ease-in-out infinite;
+  }
+  .blob::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: inherit;
+    background:
+      radial-gradient(circle at 30% 20%, rgba(255,255,255,0.18), transparent 40%),
+      radial-gradient(circle at 80% 80%, rgba(0,0,0,0.06), transparent 50%);
+  }
+  @keyframes morph {
+    0%, 100% { border-radius: 62% 38% 47% 53% / 53% 51% 49% 47%; }
+    33% { border-radius: 38% 62% 60% 40% / 50% 60% 40% 50%; }
+    66% { border-radius: 55% 45% 35% 65% / 60% 40% 60% 40%; }
+  }
+  .hero-pet {
+    position: absolute;
+    inset: 6% 6% 0 6%;
+    border-radius: 50%;
+    overflow: hidden;
+    background: linear-gradient(180deg, transparent, rgba(0,0,0,0.05));
+  }
+  .hero-pet img {
+    width: 100%; height: 100%; object-fit: cover; object-position: 50% 30%;
+    transition: transform 12s ease;
+  }
+  .hero-visual:hover .hero-pet img { transform: scale(1.08); }
+
+  /* floating badges */
+  .float {
+    position: absolute;
+    background: #fff;
+    border-radius: 18px;
+    padding: 12px 16px;
+    box-shadow: var(--shadow-md);
+    display: flex; align-items: center; gap: 12px;
+    font-size: 13px;
+    z-index: 3;
+    animation: floaty 6s ease-in-out infinite;
+  }
+  .float .ic {
+    width: 38px; height: 38px; border-radius: 12px;
+    display: grid; place-items: center;
+    color: #fff;
+  }
+  .float strong { display: block; font-size: 13px; color: var(--ink); }
+  .float small { color: var(--muted); font-size: 11px; }
+  .float-1 { top: 12%; left: -4%; animation-delay: 0s; }
+  .float-1 .ic { background: var(--coral); }
+  .float-2 { bottom: 14%; right: -2%; animation-delay: 2s; }
+  .float-2 .ic { background: var(--yellow); color: #7a4a00; }
+  .float-3 { top: 50%; right: -6%; animation-delay: 4s; }
+  .float-3 .ic { background: var(--green-deep); }
+  @keyframes floaty {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-12px); }
+  }
+
+  /* bone CTA on blob */
+  .bone-cta {
+    position: absolute;
+    bottom: -22px; left: 50%;
+    transform: translateX(-50%) rotate(-6deg);
+    background: var(--coral);
+    color: #fff;
+    padding: 22px 46px;
+    border-radius: 999px / 100%;
+    font-weight: 700;
+    font-size: 15px;
+    box-shadow: 0 14px 30px rgba(255,107,107,0.45);
+    border: 4px solid #fff;
+    transition: transform .2s;
+    z-index: 4;
+  }
+  .bone-cta::before, .bone-cta::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    width: 28px; height: 28px;
+    background: var(--coral);
+    border: 4px solid #fff;
+    border-radius: 50%;
+    transform: translateY(-50%);
+  }
+  .bone-cta::before { left: -14px; box-shadow: -10px 0 0 -4px var(--coral), -10px 0 0 0 #fff inset; }
+  .bone-cta::after { right: -14px; box-shadow: 10px 0 0 -4px var(--coral), 10px 0 0 0 #fff inset; }
+  .bone-cta:hover { transform: translateX(-50%) rotate(-2deg) scale(1.05); }
+
+  @media (min-width: 900px) {
+    .hero { padding: 60px 0 120px; }
+    .hero-grid { grid-template-columns: 1.05fr 1fr; gap: 48px; }
+    .hero-visual { max-width: none; }
+  }
+
+  /* ---------- Services ---------- */
+  .section { padding: 80px 0; }
+  .section-head {
+    text-align: center;
+    max-width: 640px;
+    margin: 0 auto 56px;
+  }
+  .section-head .kicker {
+    color: var(--coral);
+    font-family: 'Caveat', cursive;
+    font-size: 28px;
+    line-height: 1;
+    display: inline-block;
+    transform: rotate(-3deg);
+  }
+  .section-head h2 {
+    font-size: clamp(32px, 4vw, 48px);
+    margin: 8px 0 14px;
+    letter-spacing: -1px;
+    font-weight: 800;
+    line-height: 1.1;
+  }
+  .section-head p {
+    color: var(--ink-soft);
+    font-size: 16px;
+  }
+
+  .services-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 22px;
+  }
+  .service-card {
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 28px 24px;
+    box-shadow: var(--shadow-sm);
+    border: 1px solid var(--line);
+    transition: transform .25s ease, box-shadow .25s ease, border-color .2s;
+    position: relative;
+    overflow: hidden;
+  }
+  .service-card::before {
+    content: '';
+    position: absolute;
+    top: -40px; right: -40px;
+    width: 120px; height: 120px;
+    border-radius: 50%;
+    background: var(--green-soft);
+    transition: transform .4s ease;
+    z-index: 0;
+  }
+  .service-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+    border-color: transparent;
+  }
+  .service-card:hover::before { transform: scale(2); background: var(--green-soft); }
+  .service-card > * { position: relative; z-index: 1; }
+
+  .service-icon {
+    width: 64px; height: 64px;
+    border-radius: 20px;
+    display: grid; place-items: center;
+    font-size: 26px;
+    color: var(--green-deep);
+    background: #fff;
+    border: 1.5px solid var(--green-soft);
+    margin-bottom: 18px;
+    transition: transform .3s;
+  }
+  .service-card:hover .service-icon {
+    transform: rotate(-6deg) scale(1.05);
+    background: var(--green);
+    color: #fff;
+    border-color: var(--green);
+  }
+  .service-card h3 {
+    margin: 0 0 8px;
+    font-size: 20px;
+    font-weight: 700;
+  }
+  .service-card p {
+    color: var(--ink-soft);
+    font-size: 14px;
+    margin: 0 0 18px;
+  }
+  .service-price {
+    display: flex; align-items: baseline; gap: 6px;
+    margin-bottom: 18px;
+  }
+  .service-price .from { font-size: 11px; color: var(--muted); text-transform: uppercase; letter-spacing: 1.5px; }
+  .service-price .v { font-size: 22px; font-weight: 800; color: var(--ink); }
+  .service-link {
+    display: inline-flex; align-items: center; gap: 8px;
+    color: var(--coral);
+    font-weight: 600;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    transition: gap .2s;
+  }
+  .service-card:hover .service-link { gap: 14px; }
+
+  /* ---------- Booking section ---------- */
+  .booking {
+    position: relative;
+    padding: 100px 0 120px;
+    overflow: hidden;
+  }
+  .booking-bg {
+    position: absolute;
+    inset: 0;
+    background:
+      radial-gradient(circle at 80% 10%, rgba(255,203,71,0.25), transparent 40%),
+      radial-gradient(circle at 0% 100%, rgba(255,107,107,0.15), transparent 45%),
+      linear-gradient(135deg, var(--green) 0%, var(--green-deep) 100%);
+    z-index: 0;
+  }
+  .booking-bg::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    background-image:
+      radial-gradient(rgba(255,255,255,0.15) 1px, transparent 1px),
+      radial-gradient(rgba(255,255,255,0.1) 1.5px, transparent 1.5px);
+    background-size: 28px 28px, 50px 50px;
+    background-position: 0 0, 14px 14px;
+    opacity: 0.6;
+    mix-blend-mode: overlay;
+  }
+  /* organic wave dividers */
+  .wave-top, .wave-bottom {
+    position: absolute;
+    left: 0; right: 0;
+    height: 80px;
+    background: var(--bg);
+    z-index: 1;
+  }
+  .wave-top {
+    top: -1px;
+    clip-path: path('M0,0 L1440,0 L1440,40 C1200,90 900,30 720,55 C540,80 240,40 0,70 Z');
+  }
+  .wave-bottom {
+    bottom: -1px;
+    clip-path: path('M0,80 L1440,80 L1440,30 C1200,0 900,60 720,40 C540,20 240,55 0,20 Z');
+  }
+
+  .booking-inner {
+    position: relative;
+    z-index: 2;
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 40px;
+    align-items: center;
+  }
+  .booking-copy { color: #fff; }
+  .booking-copy .kicker {
+    font-family: 'Caveat', cursive;
+    font-size: 30px;
+    color: var(--yellow);
+    transform: rotate(-3deg);
+    display: inline-block;
+  }
+  .booking-copy h2 {
+    font-size: clamp(34px, 5vw, 52px);
+    line-height: 1.05;
+    margin: 8px 0 16px;
+    font-weight: 800;
+    letter-spacing: -1px;
+  }
+  .booking-copy p { font-size: 16px; opacity: 0.9; max-width: 460px; }
+  .booking-features {
+    margin-top: 28px;
+    display: grid;
+    gap: 14px;
+  }
+  .booking-features li {
+    display: flex; align-items: center; gap: 14px;
+    list-style: none;
+  }
+  .booking-features .check {
+    width: 32px; height: 32px;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.18);
+    color: var(--yellow);
+    display: grid; place-items: center;
+    flex-shrink: 0;
+  }
+  .booking-features b { font-weight: 600; }
+  .booking-features ul { padding: 0; margin: 0; }
+
+  /* form card */
+  .form-card {
+    background: #fff;
+    border-radius: 28px;
+    padding: 32px 28px;
+    box-shadow: var(--shadow-lg);
+    position: relative;
+  }
+  .form-card::before {
+    content: '';
+    position: absolute;
+    top: -14px; right: 28px;
+    width: 56px; height: 56px;
+    background: var(--yellow);
+    border-radius: 50%;
+    box-shadow: 0 8px 20px rgba(255,203,71,0.4);
+    display: grid;
+    place-items: center;
+  }
+  .form-card::after {
+    content: '\f1b0';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    top: -2px; right: 41px;
+    color: #fff;
+    font-size: 22px;
+  }
+  .form-card h3 {
+    margin: 0 0 4px;
+    font-size: 24px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+  }
+  .form-card .sub {
+    color: var(--muted);
+    font-size: 14px;
+    margin: 0 0 22px;
+  }
+  .field { margin-bottom: 16px; position: relative; }
+  .field label {
+    display: block;
+    font-size: 12px;
+    font-weight: 600;
+    color: var(--ink-soft);
+    text-transform: uppercase;
+    letter-spacing: 1.2px;
+    margin-bottom: 6px;
+  }
+  .field input,
+  .field select {
+    width: 100%;
+    padding: 14px 16px 14px 44px;
+    border: 1.5px solid var(--line);
+    border-radius: 14px;
+    font-size: 15px;
+    font-family: inherit;
+    background: #fff;
+    color: var(--ink);
+    transition: border-color .15s, box-shadow .15s;
+    appearance: none;
+  }
+  .field select {
+    background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='12' height='8' viewBox='0 0 12 8'><path fill='%238a93a0' d='M6 8L0 0h12z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 18px center;
+  }
+  .field .field-icon {
+    position: absolute;
+    left: 16px; bottom: 16px;
+    color: var(--green-deep);
+    font-size: 14px;
+    pointer-events: none;
+  }
+  .field input:focus,
+  .field select:focus {
+    outline: none;
+    border-color: var(--green);
+    box-shadow: 0 0 0 4px rgba(52,196,123,0.15);
+  }
+  .field.error input,
+  .field.error select { border-color: var(--coral); box-shadow: 0 0 0 4px rgba(255,107,107,0.12); }
+  .field .err {
+    font-size: 12px; color: var(--coral); margin-top: 6px; display: none;
+    font-weight: 500;
+  }
+  .field.error .err { display: block; }
+
+  .field-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+
+  /* pet type pills */
+  .pet-types {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .pet-types label {
+    cursor: pointer;
+    padding: 14px;
+    border: 1.5px solid var(--line);
+    border-radius: 14px;
+    text-align: center;
+    font-size: 14px;
+    font-weight: 600;
+    color: var(--ink-soft);
+    transition: all .2s;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    text-transform: none;
+    letter-spacing: 0;
+    margin: 0;
+  }
+  .pet-types input { position: absolute; opacity: 0; pointer-events: none; }
+  .pet-types label i { font-size: 18px; color: var(--muted); transition: color .2s; }
+  .pet-types input:checked + label {
+    background: var(--green-soft);
+    border-color: var(--green);
+    color: var(--green-deep);
+  }
+  .pet-types input:checked + label i { color: var(--green-deep); }
+
+  .submit-btn {
+    width: 100%;
+    background: var(--coral);
+    color: #fff;
+    font-size: 15px;
+    font-weight: 700;
+    padding: 18px;
+    border-radius: 14px;
+    margin-top: 6px;
+    transition: transform .15s, background .2s, box-shadow .2s;
+    display: flex; align-items: center; justify-content: center; gap: 10px;
+    box-shadow: 0 10px 24px rgba(255,107,107,0.35);
+  }
+  .submit-btn:hover { background: var(--coral-deep); transform: translateY(-2px); box-shadow: 0 14px 28px rgba(255,107,107,0.45); }
+
+  .form-foot {
+    text-align: center;
+    margin-top: 14px;
+    font-size: 12px;
+    color: var(--muted);
+  }
+  .form-foot i { color: var(--green); }
+
+  @media (min-width: 960px) {
+    .booking-inner { grid-template-columns: 1fr 1.05fr; gap: 64px; }
+    .form-card { padding: 40px 36px; }
+  }
+
+  /* ---------- Testimonial / Promo strip ---------- */
+  .promo {
+    padding: 64px 0;
+    background: var(--bg);
+  }
+  .promo-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: 16px;
+    align-items: stretch;
+  }
+  .promo-card {
+    background: #fff;
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 24px;
+    display: flex;
+    gap: 14px;
+    align-items: flex-start;
+    box-shadow: var(--shadow-sm);
+  }
+  .promo-card .av {
+    width: 52px; height: 52px;
+    border-radius: 50%;
+    background: var(--green-soft);
+    display: grid; place-items: center;
+    color: var(--green-deep);
+    font-size: 22px;
+    flex-shrink: 0;
+  }
+  .promo-card .av.coral { background: var(--coral-soft); color: var(--coral-deep); }
+  .promo-card .av.yellow { background: #fff4d6; color: #b87900; }
+  .promo-card strong { display: block; margin-bottom: 4px; font-size: 15px; }
+  .promo-card span { font-size: 13px; color: var(--ink-soft); }
+
+  /* ---------- Footer ---------- */
+  footer.site {
+    background: var(--ink);
+    color: #cfd5dd;
+    padding: 56px 0 28px;
+  }
+  .foot-grid {
+    display: grid;
+    grid-template-columns: 1fr;
+    gap: 32px;
+    margin-bottom: 32px;
+  }
+  .foot-grid .logo .villa { color: rgba(255,255,255,0.7); }
+  .foot-grid .logo .patas { color: var(--yellow); }
+  .foot-col h4 {
+    color: #fff;
+    font-size: 13px;
+    text-transform: uppercase;
+    letter-spacing: 1.5px;
+    margin: 0 0 14px;
+  }
+  .foot-col a { display: block; padding: 4px 0; opacity: 0.75; font-size: 14px; transition: opacity .15s, color .15s; }
+  .foot-col a:hover { opacity: 1; color: var(--coral); }
+  .foot-bot {
+    border-top: 1px solid rgba(255,255,255,0.08);
+    padding-top: 20px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 14px;
+    font-size: 13px;
+    opacity: 0.6;
+  }
+  .socials { display: flex; gap: 10px; }
+  .socials a {
+    width: 38px; height: 38px;
+    display: grid; place-items: center;
+    border-radius: 50%;
+    background: rgba(255,255,255,0.07);
+    opacity: 1;
+    padding: 0;
+  }
+  .socials a:hover { background: var(--coral); color: #fff; }
+  @media (min-width: 720px) {
+    .foot-grid { grid-template-columns: 1.4fr 1fr 1fr 1fr; }
+  }
+
+  /* ---------- Modal ---------- */
+  .modal-backdrop {
+    position: fixed; inset: 0;
+    background: rgba(20,30,40,0.55);
+    backdrop-filter: blur(6px);
+    -webkit-backdrop-filter: blur(6px);
+    display: grid; place-items: center;
+    padding: 20px;
+    opacity: 0; visibility: hidden;
+    transition: opacity .25s, visibility .25s;
+    z-index: 200;
+  }
+  .modal-backdrop.open { opacity: 1; visibility: visible; }
+  .modal {
+    background: #fff;
+    border-radius: 28px;
+    width: min(440px, 100%);
+    padding: 40px 30px 32px;
+    text-align: center;
+    box-shadow: var(--shadow-lg);
+    position: relative;
+    transform: translateY(20px) scale(0.96);
+    transition: transform .35s cubic-bezier(.2,.9,.3,1.3);
+  }
+  .modal-backdrop.open .modal { transform: translateY(0) scale(1); }
+  .modal-close {
+    position: absolute;
+    top: 14px; right: 14px;
+    width: 36px; height: 36px;
+    display: grid; place-items: center;
+    border-radius: 50%;
+    background: var(--bg);
+    color: var(--ink-soft);
+    font-size: 14px;
+    transition: background .15s;
+  }
+  .modal-close:hover { background: var(--coral-soft); color: var(--coral); }
+  .modal .checkmark {
+    width: 84px; height: 84px;
+    margin: 0 auto 18px;
+    background: var(--green-soft);
+    border-radius: 50%;
+    display: grid; place-items: center;
+    color: var(--green-deep);
+    font-size: 38px;
+    animation: pop .5s cubic-bezier(.2,.9,.3,1.5) both;
+  }
+  @keyframes pop {
+    0% { transform: scale(0.4); opacity: 0; }
+    60% { transform: scale(1.1); }
+    100% { transform: scale(1); opacity: 1; }
+  }
+  .modal h3 {
+    margin: 0 0 8px;
+    font-size: 26px;
+    font-weight: 800;
+    letter-spacing: -0.5px;
+  }
+  .modal .accent {
+    font-family: 'Caveat', cursive;
+    color: var(--coral);
+    font-size: 32px;
+    line-height: 1;
+    display: block;
+    margin-bottom: 4px;
+    transform: rotate(-2deg);
+  }
+  .modal p {
+    color: var(--ink-soft);
+    font-size: 15px;
+    margin: 0 0 20px;
+  }
+  .summary {
+    background: var(--bg);
+    border-radius: 18px;
+    padding: 18px;
+    text-align: left;
+    margin-bottom: 22px;
+    border: 1px dashed var(--line);
+  }
+  .summary .row {
+    display: flex;
+    justify-content: space-between;
+    padding: 6px 0;
+    font-size: 14px;
+  }
+  .summary .row span:first-child { color: var(--muted); }
+  .summary .row span:last-child { color: var(--ink); font-weight: 600; }
+  .modal-actions {
+    display: flex;
+    gap: 10px;
+    justify-content: center;
+  }
+  .modal-actions .btn {
+    padding: 13px 22px;
+    font-size: 14px;
+  }
+  .btn-soft {
+    background: var(--green-soft);
+    color: var(--green-deep);
+  }
+  .btn-soft:hover { background: var(--green); color: #fff; }
+
+  /* paws sprinkle decoration */
+  .paw-sprinkle {
+    position: absolute;
+    color: rgba(255,255,255,0.25);
+    font-size: 18px;
+    pointer-events: none;
+    z-index: 1;
+  }
+
+  /* tiny scroll appear — visible by default, only hide if motion allowed AND JS marks it ready */
+  .reveal { transition: opacity .6s ease, transform .6s ease; }
+  @media (prefers-reduced-motion: no-preference) {
+    html.js-ready .reveal { opacity: 0; transform: translateY(20px); }
+    html.js-ready .reveal.in { opacity: 1; transform: none; }
+  }
+
+  @media (max-width: 600px) {
+    .float-1, .float-3 { display: none; }
+    .float-2 { right: 4%; bottom: 10%; }
+    .hero { padding-top: 20px; padding-bottom: 60px; }
+    .section { padding: 60px 0; }
+    .booking { padding: 80px 0 100px; }
+    .form-card { padding: 26px 22px; }
+    .nav-cta span.hide-sm { display: none; }
+  }
+</style>
+</head>
+<body>
+
+<!-- =================== HEADER =================== -->
+<header class="site">
+  <div class="container nav">
+    <a href="#" class="logo" aria-label="Villa 4 Patas">
+      <span class="paw"><i class="fa-solid fa-paw"></i></span>
+      <span class="word">
+        <span class="villa">Villa</span>
+        <span class="patas">4&nbsp;Patas</span>
+      </span>
+    </a>
+
+    <nav class="nav-links" aria-label="Principal">
+      <a href="#inicio" class="active">Início</a>
+      <a href="#servicos">Serviços</a>
+      <a href="#agendar">Agendar</a>
+      <a href="#sobre">Sobre nós</a>
+      <a href="#contato">Contato</a>
+    </nav>
+
+    <div style="display:flex; align-items:center; gap:10px;">
+      <a href="#agendar" class="nav-cta">
+        <i class="fa-solid fa-calendar-check"></i>
+        <span class="hide-sm">Agendar</span>
+      </a>
+      <button class="menu-btn" aria-label="Menu"><i class="fa-solid fa-bars"></i></button>
+    </div>
+  </div>
+</header>
+
+<!-- =================== HERO =================== -->
+<section class="hero" id="inicio">
+  <div class="container hero-grid">
+    <div class="hero-copy reveal">
+      <span class="eyebrow">
+        <span class="dot"><i class="fa-solid fa-bolt"></i></span>
+        Agende em menos de 60 segundos
+      </span>
+      <h1>
+        Cuidado &amp; carinho
+        <span class="accent">que seu pet merece</span>
+      </h1>
+      <p class="lede">
+        Banho, tosa, hospedagem e atendimento veterinário num só lugar.
+        Profissionais apaixonados por animais cuidando do seu melhor amigo
+        com toda a atenção que ele merece.
+      </p>
+      <div class="hero-ctas">
+        <a href="#agendar" class="btn btn-primary">
+          <i class="fa-solid fa-calendar-plus"></i> Agendar agora
+        </a>
+        <a href="#servicos" class="btn btn-ghost">
+          <span class="play"><i class="fa-solid fa-play"></i></span>
+          Ver serviços
+        </a>
+      </div>
+
+      <div class="hero-stats">
+        <div class="stat">
+          <div class="n">12<span>k+</span></div>
+          <div class="l">Pets felizes</div>
+        </div>
+        <div class="stat">
+          <div class="n">4.9<span>★</span></div>
+          <div class="l">Avaliação média</div>
+        </div>
+        <div class="stat">
+          <div class="n">8<span>+</span></div>
+          <div class="l">Anos de história</div>
+        </div>
+      </div>
+    </div>
+
+    <div class="hero-visual reveal">
+      <div class="blob"></div>
+      <div class="hero-pet">
+        <img
+          src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=900&q=80"
+          alt="Cachorro feliz"
+          onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg,#e8f8ee,#c8efd6)';"
+        />
+      </div>
+
+      <div class="float float-1">
+        <div class="ic"><i class="fa-solid fa-heart"></i></div>
+        <div>
+          <strong>Cuidado certificado</strong>
+          <small>Equipe veterinária 24/7</small>
+        </div>
+      </div>
+
+      <div class="float float-2">
+        <div class="ic"><i class="fa-solid fa-paw"></i></div>
+        <div>
+          <strong>Banho hoje?</strong>
+          <small>Vagas disponíveis</small>
+        </div>
+      </div>
+
+      <div class="float float-3">
+        <div class="ic"><i class="fa-solid fa-shield-dog"></i></div>
+        <div>
+          <strong>100% seguro</strong>
+          <small>Ambiente monitorado</small>
+        </div>
+      </div>
+
+      <a href="#agendar" class="bone-cta">Agendar Agora</a>
+    </div>
+  </div>
+</section>
+
+<!-- =================== SERVICES =================== -->
+<section class="section" id="servicos">
+  <div class="container">
+    <div class="section-head reveal">
+      <span class="kicker">Nossos serviços</span>
+      <h2>O melhor cuidado, sob medida</h2>
+      <p>Tudo o que seu pet precisa pra ficar lindo, saudável e feliz — num só lugar.</p>
+    </div>
+
+    <div class="services-grid">
+      <article class="service-card reveal" data-service="Banho">
+        <div class="service-icon"><i class="fa-solid fa-shower"></i></div>
+        <h3>Banho</h3>
+        <p>Produtos hipoalergênicos, água morna e secagem cuidadosa para deixar o pelo macio e cheiroso.</p>
+        <div class="service-price"><span class="from">A partir de</span> <span class="v">R$ 60</span></div>
+        <a href="#agendar" class="service-link">Agendar <i class="fa-solid fa-arrow-right"></i></a>
+      </article>
+
+      <article class="service-card reveal" data-service="Tosa">
+        <div class="service-icon"><i class="fa-solid fa-scissors"></i></div>
+        <h3>Tosa</h3>
+        <p>Tosa higiênica, na tesoura ou estilizada — sempre respeitando a raça e o conforto do pet.</p>
+        <div class="service-price"><span class="from">A partir de</span> <span class="v">R$ 80</span></div>
+        <a href="#agendar" class="service-link">Agendar <i class="fa-solid fa-arrow-right"></i></a>
+      </article>
+
+      <article class="service-card reveal" data-service="Hotelzinho">
+        <div class="service-icon"><i class="fa-solid fa-house-chimney-window"></i></div>
+        <h3>Hotelzinho</h3>
+        <p>Suítes climatizadas, área de recreação e fotos diárias para você ficar tranquilo nas viagens.</p>
+        <div class="service-price"><span class="from">A partir de</span> <span class="v">R$ 95</span><small style="color:var(--muted);font-size:12px;">/diária</small></div>
+        <a href="#agendar" class="service-link">Agendar <i class="fa-solid fa-arrow-right"></i></a>
+      </article>
+
+      <article class="service-card reveal" data-service="Veterinário">
+        <div class="service-icon"><i class="fa-solid fa-stethoscope"></i></div>
+        <h3>Veterinário</h3>
+        <p>Consultas, vacinas e exames de rotina com equipe especializada e ambiente acolhedor.</p>
+        <div class="service-price"><span class="from">A partir de</span> <span class="v">R$ 150</span></div>
+        <a href="#agendar" class="service-link">Agendar <i class="fa-solid fa-arrow-right"></i></a>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- =================== BOOKING =================== -->
+<section class="booking" id="agendar">
+  <div class="booking-bg"></div>
+  <div class="wave-top"></div>
+  <div class="wave-bottom"></div>
+
+  <i class="fa-solid fa-paw paw-sprinkle" style="top:18%; left:6%; font-size:24px; transform:rotate(-20deg);"></i>
+  <i class="fa-solid fa-paw paw-sprinkle" style="top:60%; left:3%; font-size:18px; transform:rotate(15deg);"></i>
+  <i class="fa-solid fa-paw paw-sprinkle" style="bottom:14%; right:8%; font-size:22px; transform:rotate(-10deg);"></i>
+
+  <div class="container booking-inner">
+    <div class="booking-copy reveal">
+      <span class="kicker">Reserva online</span>
+      <h2>Agende uma visita<br/>em poucos cliques</h2>
+      <p>Escolha o melhor horário, o serviço ideal e deixe o resto com a gente. Confirmamos por WhatsApp em poucos minutos.</p>
+
+      <ul class="booking-features">
+        <li><span class="check"><i class="fa-solid fa-check"></i></span> <b>Confirmação instantânea</b> via WhatsApp</li>
+        <li><span class="check"><i class="fa-solid fa-check"></i></span> <b>Cancelamento gratuito</b> até 4h antes</li>
+        <li><span class="check"><i class="fa-solid fa-check"></i></span> <b>10% off</b> na primeira visita</li>
+      </ul>
+    </div>
+
+    <form class="form-card reveal" id="bookingForm" novalidate>
+      <h3>Faça seu agendamento</h3>
+      <p class="sub">Preencha os dados e nós cuidamos do resto.</p>
+
+      <div class="field">
+        <label for="tutor">Nome do tutor</label>
+        <input type="text" id="tutor" name="tutor" placeholder="Como podemos te chamar?" autocomplete="name" />
+        <i class="fa-solid fa-user field-icon"></i>
+        <span class="err">Por favor, informe seu nome.</span>
+      </div>
+
+      <div class="field">
+        <label for="pet">Nome do pet</label>
+        <input type="text" id="pet" name="pet" placeholder="Ex: Nala" />
+        <i class="fa-solid fa-paw field-icon"></i>
+        <span class="err">Diga o nome do seu pet.</span>
+      </div>
+
+      <div class="field">
+        <label>Tipo de pet</label>
+        <div class="pet-types">
+          <input type="radio" id="petDog" name="petType" value="Cachorro" checked />
+          <label for="petDog"><i class="fa-solid fa-dog"></i> Cachorro</label>
+          <input type="radio" id="petCat" name="petType" value="Gato" />
+          <label for="petCat"><i class="fa-solid fa-cat"></i> Gato</label>
+        </div>
+      </div>
+
+      <div class="field">
+        <label for="service">Serviço desejado</label>
+        <select id="service" name="service">
+          <option value="">Selecione um serviço…</option>
+          <option>Banho</option>
+          <option>Tosa</option>
+          <option>Banho + Tosa</option>
+          <option>Hotelzinho</option>
+          <option>Consulta Veterinária</option>
+        </select>
+        <i class="fa-solid fa-bone field-icon"></i>
+        <span class="err">Escolha o serviço.</span>
+      </div>
+
+      <div class="field-row">
+        <div class="field">
+          <label for="date">Data</label>
+          <input type="date" id="date" name="date" />
+          <i class="fa-solid fa-calendar-days field-icon"></i>
+          <span class="err">Escolha uma data.</span>
+        </div>
+        <div class="field">
+          <label for="time">Hora</label>
+          <input type="time" id="time" name="time" />
+          <i class="fa-solid fa-clock field-icon"></i>
+          <span class="err">Escolha um horário.</span>
+        </div>
+      </div>
+
+      <button type="submit" class="submit-btn">
+        <i class="fa-solid fa-calendar-check"></i> Confirmar agendamento
+      </button>
+      <div class="form-foot"><i class="fa-solid fa-lock"></i> Seus dados estão seguros conosco.</div>
+    </form>
+  </div>
+</section>
+
+<!-- =================== PROMO STRIP =================== -->
+<section class="promo" id="sobre">
+  <div class="container">
+    <div class="promo-grid">
+      <div class="promo-card reveal">
+        <div class="av"><i class="fa-solid fa-user-doctor"></i></div>
+        <div>
+          <strong>Equipe especializada</strong>
+          <span>Veterinários e tosadores com formação contínua.</span>
+        </div>
+      </div>
+      <div class="promo-card reveal">
+        <div class="av coral"><i class="fa-solid fa-heart"></i></div>
+        <div>
+          <strong>Amor em primeiro lugar</strong>
+          <span>Tratamos cada pet como parte da nossa família.</span>
+        </div>
+      </div>
+      <div class="promo-card reveal">
+        <div class="av yellow"><i class="fa-solid fa-bone"></i></div>
+        <div>
+          <strong>Mimos inclusos</strong>
+          <span>Petisco e fotinha de cortesia em todo banho.</span>
+        </div>
+      </div>
+      <div class="promo-card reveal">
+        <div class="av"><i class="fa-solid fa-truck"></i></div>
+        <div>
+          <strong>Leva &amp; traz</strong>
+          <span>Buscamos e entregamos seu pet em casa.</span>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- =================== FOOTER =================== -->
+<footer class="site" id="contato">
+  <div class="container">
+    <div class="foot-grid">
+      <div>
+        <a href="#" class="logo" style="color:#fff;">
+          <span class="paw"><i class="fa-solid fa-paw"></i></span>
+          <span class="word">
+            <span class="villa">Villa</span>
+            <span class="patas">4&nbsp;Patas</span>
+          </span>
+        </a>
+        <p style="margin-top:16px; font-size:14px; opacity:0.7; max-width:280px;">
+          Pet shop &amp; clínica veterinária. Cuidamos do seu melhor amigo com a atenção que ele merece.
+        </p>
+        <div class="socials" style="margin-top:18px;">
+          <a href="#" aria-label="Instagram"><i class="fa-brands fa-instagram"></i></a>
+          <a href="#" aria-label="WhatsApp"><i class="fa-brands fa-whatsapp"></i></a>
+          <a href="#" aria-label="Facebook"><i class="fa-brands fa-facebook-f"></i></a>
+        </div>
+      </div>
+      <div class="foot-col">
+        <h4>Serviços</h4>
+        <a href="#">Banho</a>
+        <a href="#">Tosa</a>
+        <a href="#">Hotelzinho</a>
+        <a href="#">Veterinário</a>
+      </div>
+      <div class="foot-col">
+        <h4>Empresa</h4>
+        <a href="#">Sobre nós</a>
+        <a href="#">Equipe</a>
+        <a href="#">Trabalhe conosco</a>
+        <a href="#">Blog</a>
+      </div>
+      <div class="foot-col">
+        <h4>Contato</h4>
+        <a href="#"><i class="fa-solid fa-phone" style="width:18px;"></i> (11) 4002-8922</a>
+        <a href="#"><i class="fa-solid fa-envelope" style="width:18px;"></i> oi@villa4patas.com</a>
+        <a href="#"><i class="fa-solid fa-location-dot" style="width:18px;"></i> Rua das Flores, 123</a>
+      </div>
+    </div>
+    <div class="foot-bot">
+      <span>© 2026 Villa 4 Patas · Todos os direitos reservados</span>
+      <span>Feito com <i class="fa-solid fa-heart" style="color:var(--coral);"></i> para os pets</span>
+    </div>
+  </div>
+</footer>
+
+<!-- =================== SUCCESS MODAL =================== -->
+<div class="modal-backdrop" id="modal" role="dialog" aria-modal="true" aria-labelledby="modalTitle">
+  <div class="modal">
+    <button class="modal-close" id="modalClose" aria-label="Fechar"><i class="fa-solid fa-xmark"></i></button>
+    <div class="checkmark"><i class="fa-solid fa-check"></i></div>
+    <span class="accent">Agendamento confirmado!</span>
+    <h3 id="modalTitle">Obrigado pela preferência <span id="modalTutor">amigo</span> 🐾</h3>
+    <p>Vamos receber <b id="modalPet">seu pet</b> com muito carinho. Em poucos minutos você recebe a confirmação por WhatsApp.</p>
+
+    <div class="summary" id="modalSummary"></div>
+
+    <div class="modal-actions">
+      <button class="btn btn-soft" id="modalAnother">Novo agendamento</button>
+      <button class="btn btn-primary" id="modalOk">Combinado!</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // ---------- Smooth scroll for in-page anchors ----------
+  document.querySelectorAll('a[href^="#"]').forEach(a => {
+    a.addEventListener('click', (e) => {
+      const id = a.getAttribute('href');
+      if (id.length > 1) {
+        const el = document.querySelector(id);
+        if (el) {
+          e.preventDefault();
+          window.scrollTo({ top: el.offsetTop - 70, behavior: 'smooth' });
+        }
+      }
+    });
+  });
+
+  // ---------- Reveal on scroll ----------
+  // Mark JS ready so the reveal styles activate; safety net guarantees visibility.
+  document.documentElement.classList.add('js-ready');
+  const revealEls = document.querySelectorAll('.reveal');
+  const io = new IntersectionObserver((entries) => {
+    entries.forEach(e => {
+      if (e.isIntersecting) {
+        e.target.classList.add('in');
+        io.unobserve(e.target);
+      }
+    });
+  }, { threshold: 0.08, rootMargin: '0px 0px -40px 0px' });
+  revealEls.forEach(el => io.observe(el));
+  // Immediately reveal anything already in view (covers above-the-fold + embedded iframes).
+  requestAnimationFrame(() => {
+    revealEls.forEach(el => {
+      const r = el.getBoundingClientRect();
+      if (r.top < (window.innerHeight || 800) * 0.95) el.classList.add('in');
+    });
+  });
+  // Final safety net: after 1.5s, force everything visible no matter what.
+  setTimeout(() => revealEls.forEach(el => el.classList.add('in')), 1500);
+
+  // ---------- Service card -> prefill ----------
+  document.querySelectorAll('.service-card').forEach(card => {
+    card.addEventListener('click', (e) => {
+      const link = e.target.closest('.service-link');
+      if (!link) return;
+      const svc = card.dataset.service;
+      const select = document.getElementById('service');
+      if (svc && select) {
+        for (const opt of select.options) {
+          if (opt.value === svc || opt.textContent.trim() === svc) {
+            select.value = opt.value || opt.textContent.trim();
+            break;
+          }
+        }
+      }
+    });
+  });
+
+  // ---------- Date min = today ----------
+  (function setMinDate(){
+    const d = document.getElementById('date');
+    const today = new Date();
+    const pad = n => String(n).padStart(2, '0');
+    const min = `${today.getFullYear()}-${pad(today.getMonth()+1)}-${pad(today.getDate())}`;
+    d.min = min;
+  })();
+
+  // ---------- Form ----------
+  const form = document.getElementById('bookingForm');
+  const fields = ['tutor', 'pet', 'service', 'date', 'time'];
+
+  function validate() {
+    let ok = true;
+    fields.forEach(name => {
+      const input = document.getElementById(name);
+      const wrap = input.closest('.field');
+      const val = (input.value || '').trim();
+      if (!val) {
+        wrap.classList.add('error');
+        ok = false;
+      } else {
+        wrap.classList.remove('error');
+      }
+    });
+    return ok;
+  }
+  fields.forEach(name => {
+    const input = document.getElementById(name);
+    input.addEventListener('input', () => input.closest('.field').classList.remove('error'));
+    input.addEventListener('change', () => input.closest('.field').classList.remove('error'));
+  });
+
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (!validate()) {
+      // shake the first error
+      const firstErr = form.querySelector('.field.error');
+      if (firstErr) {
+        firstErr.animate(
+          [{transform:'translateX(0)'}, {transform:'translateX(-6px)'}, {transform:'translateX(6px)'}, {transform:'translateX(0)'}],
+          { duration: 320 }
+        );
+        firstErr.querySelector('input,select')?.focus();
+      }
+      return;
+    }
+    openModal();
+  });
+
+  // ---------- Modal ----------
+  const modal = document.getElementById('modal');
+  function fmtDate(iso){
+    if(!iso) return '';
+    const [y,m,d] = iso.split('-');
+    return `${d}/${m}/${y}`;
+  }
+  function openModal(){
+    const tutor = document.getElementById('tutor').value.trim();
+    const pet   = document.getElementById('pet').value.trim();
+    const type  = document.querySelector('input[name="petType"]:checked').value;
+    const svc   = document.getElementById('service').value;
+    const date  = document.getElementById('date').value;
+    const time  = document.getElementById('time').value;
+
+    document.getElementById('modalTutor').textContent = tutor.split(' ')[0] || 'amigo';
+    document.getElementById('modalPet').textContent = pet || 'seu pet';
+
+    document.getElementById('modalSummary').innerHTML = `
+      <div class="row"><span>Pet</span><span>${escapeHTML(pet)} · ${type}</span></div>
+      <div class="row"><span>Serviço</span><span>${escapeHTML(svc)}</span></div>
+      <div class="row"><span>Data</span><span>${fmtDate(date)} · ${time}</span></div>
+      <div class="row"><span>Tutor</span><span>${escapeHTML(tutor)}</span></div>
+    `;
+    modal.classList.add('open');
+    document.body.style.overflow = 'hidden';
+  }
+  function closeModal(){
+    modal.classList.remove('open');
+    document.body.style.overflow = '';
+  }
+  function escapeHTML(s){
+    return String(s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  }
+  document.getElementById('modalClose').addEventListener('click', closeModal);
+  document.getElementById('modalOk').addEventListener('click', closeModal);
+  document.getElementById('modalAnother').addEventListener('click', () => {
+    closeModal();
+    form.reset();
+    document.getElementById('petDog').checked = true;
+    setTimeout(() => document.getElementById('tutor').focus(), 200);
+  });
+  modal.addEventListener('click', (e) => { if (e.target === modal) closeModal(); });
+  document.addEventListener('keydown', (e) => { if (e.key === 'Escape') closeModal(); });
+</script>
+
+</body>
+</html>
