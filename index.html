@@ -13,13 +13,19 @@
 <style>
   /* ---------- Tokens ---------- */
   :root {
-    --green: #34c47b;
-    --green-deep: #1f9d5e;
-    --green-soft: #e8f8ee;
-    --coral: #ff6b6b;
-    --coral-deep: #ef4f4f;
-    --coral-soft: #ffe6e3;
-    --yellow: #ffcb47;
+    /* Família do Verde -> Mapeada para o Teal/Ciano da logo */
+    --green: #35B09E;       /* O Teal médio da base da logo */
+    --green-deep: #0E5E5F;  /* O Teal bem escuro dos triângulos */
+    --green-soft: #E6F5F3;  /* Fundo clarinho derivado do Teal */
+
+    /* Família do Coral -> Mapeada para o Rosa Choque da logo */
+    --coral: #EE3E65;       /* O Rosa Choque principal dos raios */
+    --coral-deep: #C9284D;  /* Tom mais escuro para o clique do botão */
+    --coral-soft: #FDEEEF;  /* Fundo clarinho derivado do Rosa */
+
+    /* O Amarelo original -> Trocado pelo Rosa Salmão claro da logo */
+    --yellow: #F67A88;      /* O terceiro tom dos raios da logo */
+
     --ink: #1f2933;
     --ink-soft: #4b5563;
     --muted: #8a93a0;
@@ -31,7 +37,6 @@
     --shadow-lg: 0 24px 60px rgba(20, 30, 40, 0.14);
     --radius: 22px;
   }
-
   * { box-sizing: border-box; }
   html, body { margin: 0; padding: 0; }
   body {
@@ -992,7 +997,7 @@
       <div class="blob"></div>
       <div class="hero-pet">
         <img
-          src="https://images.unsplash.com/photo-1583511655857-d19b40a7a54e?auto=format&fit=crop&w=900&q=80"
+          src="https://images.unsplash.com/photo-1601979031925-424e53b6caaa?auto=format&fit=crop&w=900&q=80"
           alt="Cachorro feliz"
           onerror="this.style.display='none'; this.parentElement.style.background='linear-gradient(135deg,#e8f8ee,#c8efd6)';"
         />
