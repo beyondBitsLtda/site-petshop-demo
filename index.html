@@ -494,22 +494,22 @@
     opacity: 0.6;
     mix-blend-mode: overlay;
   }
-  /* organic wave dividers */
+
   .wave-top, .wave-bottom {
-    position: absolute;
-    left: 0; right: 0;
-    height: 80px;
-    background: var(--bg);
-    z-index: 1;
-  }
-  .wave-top {
-    top: -1px;
-    clip-path: path('M0,0 L1440,0 L1440,40 C1200,90 900,30 720,55 C540,80 240,40 0,70 Z');
-  }
-  .wave-bottom {
-    bottom: -1px;
-    clip-path: path('M0,80 L1440,80 L1440,30 C1200,0 900,60 720,40 C540,20 240,55 0,20 Z');
-  }
+  position: absolute;
+  left: 0; right: 0;
+  height: 60px;
+  overflow: hidden;
+  line-height: 0;
+  z-index: 1;
+}
+.wave-top { top: 0; }
+.wave-bottom { bottom: 0; transform: rotate(180deg); }
+.wave-top svg, .wave-bottom svg {
+  display: block;
+  width: 100%;
+  height: 100%;
+}
 
   .booking-inner {
     position: relative;
@@ -1080,8 +1080,17 @@
 <!-- =================== BOOKING =================== -->
 <section class="booking" id="agendar">
   <div class="booking-bg"></div>
-  <div class="wave-top"></div>
-  <div class="wave-bottom"></div>
+!-- DEPOIS (colocar): -->
+<div class="wave-top">
+  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,0 L1440,0 L1440,20 C1200,60 900,10 720,35 C540,58 240,18 0,48 Z" fill="#fafaf7"/>
+  </svg>
+</div>
+<div class="wave-bottom">
+  <svg viewBox="0 0 1440 60" preserveAspectRatio="none" xmlns="http://www.w3.org/2000/svg">
+    <path d="M0,0 L1440,0 L1440,20 C1200,60 900,10 720,35 C540,58 240,18 0,48 Z" fill="#fafaf7"/>
+  </svg>
+</div>
 
   <i class="fa-solid fa-paw paw-sprinkle" style="top:18%; left:6%; font-size:24px; transform:rotate(-20deg);"></i>
   <i class="fa-solid fa-paw paw-sprinkle" style="top:60%; left:3%; font-size:18px; transform:rotate(15deg);"></i>
